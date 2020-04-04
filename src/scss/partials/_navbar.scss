@@ -1,0 +1,13 @@
+@import "../variables/colors";
+
+.navbar {
+  -webkit-box-shadow: -8px 13px 22px 3px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: -8px 13px 22px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: -8px 13px 22px 3px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+
+  &-color {
+    background-color: $primary-color;
+    margin-bottom: 120px;
+  }
+}

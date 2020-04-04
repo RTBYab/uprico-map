@@ -1,0 +1,87 @@
+// Input placeHolder
+/* Overriding styles */
+::-webkit-input-placeholder {
+  font-size: 0.9rem !important;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-size: 0.9rem !important;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-size: 0.9rem !important;
+}
+
+#explore-section .squre {
+  border-radius: 0.9rem;
+}
+// Main Settings
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: IRANSans !important;
+  height: 2000px;
+}
+
+// Remove Ul bullet
+ul {
+  list-style: none;
+}
+
+// Font Settings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea {
+  font-family: IRANSans !important;
+}
+h1 {
+  font-weight: bold;
+}
+
+// Navbat Toggler Icon
+.navbar-toggler {
+  &-icon {
+    width: 1.2rem;
+  }
+}
+// .navbar-toggler-icon {
+//   width: 1.2rem;
+// }
+
+// Dropdown Navbar
+.dropdown {
+  &-item {
+    font-size: small;
+  }
+  &-menu:hover {
+    visibility: visible;
+  }
+  // Remove or Replace Caret
+  &-toggle:after {
+    display: none; // Remove Caret
+    font-size: 0.9rem;
+    border-radius: 50%;
+  }
+  &-toggle:hover {
+    visibility: visible;
+  }
+}
+// DropDown on Hover
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; // remove the gap so it doesn't close
+  @media (max-width: 979px) {
+    display: block;
+    margin-top: 0;
+  }
+}
