@@ -72,7 +72,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   return (
     <Fragment>
       {scroll === true ? (
-        <nav className="navbar navbar-expand-sm navbar-light bg-transparent fixed-top">
+        <nav className="navbar navbar-expand-sm navbar-light bg-transparent fixed-top ">
           <div className="container">
             <button
               className="navbar-toggler"
