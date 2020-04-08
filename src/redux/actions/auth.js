@@ -8,12 +8,13 @@ import {
   CLEAR_PROFILE,
   REGISTER_FAIL,
   LOGIN_SUCCESS,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  MOBILE,
 } from "../actions/index";
 import setAuthToken from "../../utils/setAuthToken";
 
 // LOAD USER
-export const loadUser = id => async dispatch => {
+export const loadUser = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -21,20 +22,20 @@ export const loadUser = id => async dispatch => {
     const res = await axios.get(`http://localhost:8080/api/cuser/${id}`);
     dispatch({
       type: USER_LOADED,
-      payload: res.data
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
-      type: AUTH_FAIL
+      type: AUTH_FAIL,
     });
   }
 };
 
-export const register = ({ name, email, password }) => async dispatch => {
+export const register = ({ name, email, password }) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
   const body = JSON.stringify({ name, email, password });
 
@@ -46,54 +47,118 @@ export const register = ({ name, email, password }) => async dispatch => {
     );
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
-      errors.foreach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.foreach((error) => dispatch(setAlert(error.msg, "danger")));
     }
     dispatch({
-      type: REGISTER_FAIL
+      type: REGISTER_FAIL,
     });
   }
 };
 
-export const login = (email, password) => async dispatch => {
+// export const login = (email, password) => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+//   const body = JSON.stringify({ email, password });
+//   try {
+//     const res = await axios.post(
+//       "http://localhost:8080/api/signin",
+//       body,
+//       config
+//     );
+//     dispatch({
+//       type: LOGIN_SUCCESS,
+//       payload: res.data,
+//     });
+//     dispatch(loadUser());
+//   } catch (error) {
+//     const errors = error.response.data.errors;
+//     if (errors) {
+//       errors.foreach((error) => dispatch(setAlert(error.msg, "danger")));
+//     }
+//     dispatch({
+//       type: LOGIN_FAIL,
+//     });
+//   }
+// };
+
+export const loginByPhone = (mobile, history) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      accept: "appication/json",
+      "Content-Type": "application/json",
+    },
   };
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({ mobile });
   try {
     const res = await axios.post(
-      "http://localhost:8080/api/signin",
+      "http://localhost:8080/api/mobile/signin",
+      body,
+      config
+    );
+    // dispatch({
+    //   type: MOBILE,
+    //   payload: res.data,
+    // });
+    history.push(`/verification/${mobile}`, { data: mobile });
+  } catch (error) {
+    console.log(error);
+
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
+};
+
+export const verfication = ({ code, history, mobileNumber }) => async (
+  dispatch
+) => {
+  const config = {
+    headers: {
+      accept: "appication/json",
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ code, mobileNumber });
+
+  console.log("code", code);
+
+  console.log("mobileNumber", mobileNumber);
+
+  try {
+    const res = await axios.post(
+      "http://localhost:8080/api/mobile/verification/",
       body,
       config
     );
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
     dispatch(loadUser());
+    history.push("/dashboard");
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.foreach(error => dispatch(setAlert(error.msg, "danger")));
-    }
+    console.log(error);
+
     dispatch({
-      type: LOGIN_FAIL
+      type: LOGIN_FAIL,
     });
   }
 };
 
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   dispatch({
-    type: CLEAR_PROFILE
+    type: CLEAR_PROFILE,
   });
   dispatch({
-    type: LOGOUT
+    type: LOGOUT,
   });
 };

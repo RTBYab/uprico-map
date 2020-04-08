@@ -16,32 +16,32 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import { createStore } from "../../redux/actions/store";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   margin: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const theme = createMuiTheme({
   direction: "rtl",
   typography: {
-    fontFamily: "IRANSans"
-  }
+    fontFamily: "IRANSans",
+  },
 });
 
 const CreateStore = ({ store }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    address: ""
+    address: "",
   });
   const classes = useStyles();
 
   const { name, description, address } = formData;
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
@@ -83,7 +83,7 @@ const CreateStore = ({ store }) => {
                 </Grid>
               </Grid>
             </div>
-            <div className="mapCenter">
+            <div className="mapCenter" style={{ direction: "ltr" }}>
               <Map />
             </div>
           </ThemeProvider>
@@ -94,9 +94,9 @@ const CreateStore = ({ store }) => {
 };
 
 CreateStore.prototype = {
-  store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
-  store: state.store
+const mapStateToProps = (state) => ({
+  store: state.store,
 });
 export default connect(mapStateToProps, { createStore })(CreateStore);

@@ -13,14 +13,14 @@ const Details = ({
   auth,
   updatePost,
   deletePost,
-  history
+  history,
 }) => {
   const { data } = match.params;
   const id = auth.user._id;
 
   const [formData, setFormData] = useState({
     title: "",
-    body: ""
+    body: "",
   });
   const { title, body } = formData;
 
@@ -28,7 +28,7 @@ const Details = ({
     getPost(data, id);
   }, [getPost, data, id, title, body]);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -36,7 +36,7 @@ const Details = ({
     deletePost(id, auth.token, history);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     updatePost(post._id, auth.token, title, body, history);
   };
@@ -47,12 +47,12 @@ const Details = ({
     <Fragment>
       {post.postedBy._id === id ? (
         <div>
-          <form className="form" onSubmit={e => onSubmit(e)}>
+          <form className="form" onSubmit={(e) => onSubmit(e)}>
             <div className="form-group">
               <input
                 name="title"
                 value={title || post.title}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <img
@@ -63,7 +63,7 @@ const Details = ({
               <input
                 name="body"
                 value={body || post.body}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <input type="submit" className="btn btn-primary" value="اصلاحات" />
@@ -85,11 +85,11 @@ Details.prototype = {
   post: PropTypes.object.isRequired,
   getPost: PropTypes.func.isRequired,
   updatePost: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired
+  deletePost: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   post: state.post,
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getPost, updatePost, deletePost })(

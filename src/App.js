@@ -6,6 +6,7 @@ import store from "./redux/store/store";
 import Details from "./components/details";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/dashboard";
+import Verification from "./components/verification";
 import CreateStore from "./components/store";
 import AddNewPost from "./components/addNewPost";
 import setAuthToken from "./utils/setAuthToken";
@@ -37,7 +38,13 @@ const App = () => {
             <Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route
+                exact
+                path="/verification/:mobile"
+                render={(props) => <Verification {...props} />}
+              />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
               <PrivateRoute
                 exact
                 path="/create-store"

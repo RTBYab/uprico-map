@@ -17,14 +17,16 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   });
 
   const authLink = (
-    <ul>
-      <li>
-        <a onClick={logout} href="#!">
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <a className="nav-link" onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt"></i>{" "}
         </a>
       </li>
-      <li>
-        <Link to="/dashboard">کسب وکار من</Link>
+      <li className="nav-item">
+        <Link className="nav-link" to="/dashboard">
+          کسب وکار من
+        </Link>
       </li>
     </ul>
   );

@@ -1,5 +1,5 @@
 // SCSS is Login
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -10,21 +10,22 @@ const Form = ({ detail, title, phoneNumber, description, buttonTitle }) => {
 
   const { phone } = formData;
 
-  const onChange = (e) =>
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="container">
       <div className="row">
-        <div className="d-flex parent ">
+        <div className="d-flex parent">
           <div className="col-lg-5 col-md-5 login-panel-right ">
             <form className="form-group login-form-style">
               <div className="flex mx-auto">
                 <div className="form-group">
                   <h3 className="text-center mb-5">{title}</h3>
 
-                  <label for="exampleInputEmail1">{phoneNumber} :</label>
-                  <input
+                  <label htmlfor="exampleInputEmail1">{phoneNumber} :</label>
+                  {/* <input
                     type="number"
                     name="phone"
                     value={phone}
@@ -34,10 +35,10 @@ const Form = ({ detail, title, phoneNumber, description, buttonTitle }) => {
                     placeholder="9xxxxxxxxx"
                     aria-describedby="emailHelp"
                     className="form-control text-center"
-                  />
+                  /> */}
                   <small
                     id="emailHelp"
-                    className="form-text text-muted text-center mt-3"
+                    className="form-text text-muted text-center mt-5"
                   >
                     {description}
                   </small>

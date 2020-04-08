@@ -1,11 +1,12 @@
 import {
+  // MOBILE,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
   // AUTH_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
   // LOGIN_FAIL
 } from "../actions/index";
 
@@ -14,10 +15,11 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
-  redirect: false
+  // redirect: false,
+  // mobileNumber: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case USER_LOADED:
@@ -25,7 +27,7 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload
+        user: payload,
       };
     case REGISTER_SUCCESS:
       return {
@@ -33,15 +35,24 @@ export default function(state = initialState, action) {
         ...payload,
         isAuthenticated: false,
         loading: false,
-        redirect: true
+        redirect: true,
       };
+    // case MOBILE:
+    //   return {
+    //     ...state,
+    //     ...payload,
+    //     isAuthenticated: false,
+    //     loading: false,
+    //     redirect: true,
+    //     mobileNumber: payload,
+    //   };
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
       return {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
       };
     case REGISTER_FAIL:
     case LOGOUT:
@@ -51,7 +62,7 @@ export default function(state = initialState, action) {
         ...state,
         token: null,
         isAuthenticated: null,
-        loading: false
+        loading: false,
       };
     default:
       return state;

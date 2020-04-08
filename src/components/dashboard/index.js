@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
+import Header from "../store/storeHeader";
+import Footer from "../store/storeFooter";
 import React, { useEffect, Fragment } from "react";
 import { getPosts } from "../../redux/actions/post";
 import { getStoreByStoreOwner } from "../../redux/actions/store";
-import Header from "../store/storeHeader";
-import Footer from "../store/storeFooter";
 
 const Dashboard = ({
   getStoreByStoreOwner,
   auth: { user },
   store,
-  getPosts
+  getPosts,
 }) => {
   const id = user._id;
   useEffect(() => {
@@ -25,20 +25,25 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
-      <Header />
-      <p className="lead">
-        <i className="fas fa-user"></i> {user && user.name} خوش آمدید
-      </p>
-
       {store.store !== null ? (
-        <Grid />
+        <Fragment>
+          <Header />
+          <Grid />
+          <Footer />
+        </Fragment>
       ) : (
-        <Link to="/create-store" className="btn btn-danger">
-          {" "}
-          ساخت فروشگاه
-        </Link>
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <img
+            src={require("../../utils/image/store.png")}
+            alt="store"
+            className="rounded mx-auto d-block dashboard-image"
+          />
+          <Link to="/create-store" className="btn btn-dark text-center m-auto">
+            {" "}
+            ساخت فروشگاه
+          </Link>
+        </div>
       )}
-      <Footer />
     </Fragment>
   );
 };
@@ -46,12 +51,12 @@ Dashboard.prototype = {
   auth: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   getPosts: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   store: state.store,
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getStoreByStoreOwner, getPosts })(
