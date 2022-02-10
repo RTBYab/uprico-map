@@ -14,7 +14,7 @@
     "jwt-decode": "^2.2.0",
     "mapbox-gl": "^1.8.1",
     "mdbreact": "^4.25.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-images-upload": "^1.2.8",
